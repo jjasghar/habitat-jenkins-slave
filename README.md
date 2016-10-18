@@ -6,18 +6,16 @@ This is a plan to build a jenkins-slave in habitat.
 
 ```
 $ hab studio enter # enter the studio
-[1][default:/src:0]# cd habitat-jenkins/
+[1][default:/src:0]# cd habitat-jenkins-slave/
 [2][default:/src/habitat-jenkins:0]# build
-[3][default:/src/habitat-jenkins:0]# hab start YOURORIGIN/jenkins-war # verify everything comes up
-[4][default:/src/habitat-jenkins:0]# hab pkg export docker YOURORIGIN/jenkins-war # export to a container
+[3][default:/src/habitat-jenkins:0]# hab start YOURORIGIN/jenkins-slave # verify everything comes up
+[4][default:/src/habitat-jenkins:0]# hab pkg export docker YOURORIGIN/jenkins-slave # export to a container
 [5][default:/src/habitat-jenkins:0]# logout # leave the studio
-$ docker run -p 8080:8080 -it YOURORIGIN/jenkins-war:latest # run container
+$ docker run -p 8080:8080 -it YOURORIGIN/jenkins-slave:latest # run container
 ```
 ## License & Authors
 
 - Author:: JJ Asghar (<jj@chef.io>)
-- Author:: Ian Henery (<ihenery@chef.io>)
-- Author:: Elliott Davis (<edavis@chef.io>)
 
 ```text
 Copyright (c) 2016, JJ Asghar
