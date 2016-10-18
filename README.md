@@ -7,10 +7,10 @@ This is a plan to build a jenkins-slave in habitat.
 ```
 $ hab studio enter # enter the studio
 [1][default:/src:0]# cd habitat-jenkins-slave/
-[2][default:/src/habitat-jenkins:0]# build
-[3][default:/src/habitat-jenkins:0]# hab start YOURORIGIN/jenkins-slave # verify everything comes up
-[4][default:/src/habitat-jenkins:0]# hab pkg export docker YOURORIGIN/jenkins-slave # export to a container
-[5][default:/src/habitat-jenkins:0]# logout # leave the studio
+[2][default:/src/habitat-jenkins-slave:0]# build
+[3][default:/src/habitat-jenkins-slave:0]# hab start YOURORIGIN/jenkins-slave # verify everything comes up
+[4][default:/src/habitat-jenkins-slave:0]# hab pkg export docker YOURORIGIN/jenkins-slave # export to a container
+[5][default:/src/habitat-jenkins-slave:0]# logout # leave the studio
 $ docker run -p 8080:8080 -it YOURORIGIN/jenkins-slave:latest # run container
 ```
 ## License & Authors
