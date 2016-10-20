@@ -1,0 +1,42 @@
+#!/bin/sh
+
+exec 2>&1
+
+PASSWORD=`openssl passwd -1 -salt xyz  jenkins`
+
+echo "***"
+echo "Creating ssh keys"
+echo "***"
+
+mkdir -p {{pkg.svc_var_path}}/empty
+
+# Generate the keys if they do not exist - restarting sshd would cause
+# this to fail, e.g., on package upgrade
+if [ ! -f {{pkg.svc_config_path}}/ssh_host_dsa_key ]; then
+  ssh-keygen -t dsa -f {{pkg.svc_config_path}}/ssh_host_dsa_key -N ""
+fi
+
+if [ ! -f {{pkg.svc_config_path}}/ssh_host_rsa_key ]; then
+  ssh-keygen -t rsa -f {{pkg.svc_config_path}}/ssh_host_rsa_key -N ""
+fi
+
+if [ ! -f {{pkg.svc_config_path}}/ssh_host_ed25519_key ]; then
+  ssh-keygen -t ed25519 -f {{pkg.svc_config_path}}/ssh_host_ed25519_key -N ""
+fi
+
+if [ ! -f {{pkg.svc_config_path}}/ssh_host_ecdsa_key ]; then
+  ssh-keygen -t ecdsa -f {{pkg.svc_config_path}}/ssh_host_ecdsa_key -N ""
+fi
+
+echo "***"
+echo "Creating the jenkins user"
+echo "***"
+mkdir -p {{pkg.svc_data_path}}/jenkins
+mkdir -p {{pkg.svc_config_path}}/etc
+
+grep "jenkins" {{pkg.svc_config_path}}/etc/passwd
+if [ $? -eq 0 ]; then
+    echo "Jenkins user exists!"
+else
+    echo "jenkins:$PASSWORD:5000:5000:jenkins:{{pkg.svc_data_path}}/jenkins:/bin/sh" >> {{pkg.svc_config_path}}/etc/passwd
+fi

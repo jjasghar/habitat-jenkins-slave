@@ -8,12 +8,12 @@ Port 22
 #ListenAddress 0.0.0.0
 Protocol 2
 # HostKeys for protocol version 2
-HostKey /etc/ssh/ssh_host_rsa_key
-HostKey /etc/ssh/ssh_host_dsa_key
-HostKey /etc/ssh/ssh_host_ecdsa_key
-HostKey /etc/ssh/ssh_host_ed25519_key
+HostKey {{pkg.svc_config_path}}/ssh_host_rsa_key
+HostKey {{pkg.svc_config_path}}/ssh_host_dsa_key
+HostKey {{pkg.svc_config_path}}/ssh_host_ecdsa_key
+#HostKey {{pkg.svc_config_path}}/ssh_host_ed25519_key
 #Privilege Separation is turned on for security
-UsePrivilegeSeparation yes
+UsePrivilegeSeparation no
 
 # Lifetime and size of ephemeral version 1 server key
 KeyRegenerationInterval 3600
@@ -61,7 +61,7 @@ ChallengeResponseAuthentication no
 #GSSAPIAuthentication no
 #GSSAPICleanupCredentials yes
 
-X11Forwarding yes
+X11Forwarding no
 X11DisplayOffset 10
 PrintMotd no
 PrintLastLog yes
@@ -75,14 +75,3 @@ TCPKeepAlive yes
 AcceptEnv LANG LC_*
 
 Subsystem sftp /usr/lib/openssh/sftp-server
-
-# Set this to 'yes' to enable PAM authentication, account processing,
-# and session processing. If this is enabled, PAM authentication will
-# be allowed through the ChallengeResponseAuthentication and
-# PasswordAuthentication.  Depending on your PAM configuration,
-# PAM authentication via ChallengeResponseAuthentication may bypass
-# the setting of "PermitRootLogin without-password".
-# If you just want the PAM account and session checks to run without
-# PAM authentication, then enable this but set PasswordAuthentication
-# and ChallengeResponseAuthentication to 'no'.
-UsePAM yes
