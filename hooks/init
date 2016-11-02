@@ -28,15 +28,36 @@ if [ ! -f {{pkg.svc_config_path}}/ssh_host_ecdsa_key ]; then
   ssh-keygen -t ecdsa -f {{pkg.svc_config_path}}/ssh_host_ecdsa_key -N ""
 fi
 
-echo "***"
-echo "Creating the jenkins user"
-echo "***"
-mkdir -p {{pkg.svc_data_path}}/jenkins
-mkdir -p {{pkg.svc_config_path}}/etc
+echo 'hab:hab' | chpasswd
 
-grep "jenkins" {{pkg.svc_config_path}}/etc/passwd
-if [ $? -eq 0 ]; then
-    echo "Jenkins user exists!"
-else
-    echo "jenkins:$PASSWORD:5000:5000:jenkins:{{pkg.svc_data_path}}/jenkins:/bin/sh" >> {{pkg.svc_config_path}}/etc/passwd
-fi
+ls -la /bin/
+echo "****************************************"
+ls -la /
+echo "****************************************"
+ls -la /etc
+echo "****************************************"
+ls -la /etc/pam.d
+echo "****************************************"
+# echo "***"
+# echo "Creating the jenkins user"
+# echo "***"
+# mkdir -p {{pkg.svc_data_path}}/jenkins
+# mkdir -p {{pkg.svc_config_path}}/etc
+# mkdir -p /etc
+
+# grep "jenkins" {{pkg.svc_config_path}}/etc/passwd
+# if [ $? -eq 0 ]; then
+#   echo "Jenkins user exists is the passwd file!"
+# else
+#   echo "jenkins:$PASSWORD:5000:5000:jenkins:{{pkg.svc_data_path}}/jenkins:/bin/sh" >> {{pkg.svc_config_path}}/etc/passwd
+# fi
+
+# grep "jenkins" {{pkg.svc_config_path}}/etc/shadow
+# if [ $? -eq 0 ]; then
+#   echo "Jenkins user exists in the shadow file!"
+# else
+#   echo "jenkins:*:17084:0:99999:7:::" >> {{pkg.svc_config_path}}/etc/shadow
+# fi
+
+# ln -s /etc/passwd {{pkg.svc_config_path}}/etc/passwd
+# ln -s /etc/shadow {{pkg.svc_config_path}}/etc/shadow
